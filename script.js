@@ -1,10 +1,10 @@
 //Thanks to http://www.maissan.net/articles/simulating-vines/ !
 
-function drawVineWithLattice(context, lattice, x, y, interations, sort, prune) {
+function drawVineWithLattice(context, x, y, interations) {
   
   // Set stroke colour
   context.lineWidth = 0.5;
-  context.strokeStyle = "rgb(0, 0, 0)";
+  context.strokeStyle = "green";
 
   // Create initial branch
   var branches = new Array();
@@ -63,13 +63,7 @@ function drawVineWithLattice(context, lattice, x, y, interations, sort, prune) {
           // Generate random deviation from previous angle
           var angle = branches[j].angle - (Math.random() * 180 - 90);         
           
-          // Determine closest lattice point
-          var distanceToLattice = 100000
-          for (var l in lattice) {
-            var result = distancePointToLine(branches[j].points[3], lattice[l]);
-            if (result < distanceToLattice) distanceToLattice = result;
-          }
-          
+
           // Generate random length
           var length = Math.random() * 15 + 4;
           
@@ -85,8 +79,7 @@ function drawVineWithLattice(context, lattice, x, y, interations, sort, prune) {
               branches[j].points[3],
               {x:x2, y:y2}
             ),
-            angle:angle,
-            distanceToLattice:distanceToLattice
+            angle:angle
           });
         }
       }
@@ -141,5 +134,4 @@ var canvas = document.getElementById("theCanvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var context = canvas.getContext("2d");
-var prune = true;
-drawVineWithLattice(context, new Array(), canvas.width/2, canvas.height/2, 500, false, prune);
+drawVineWithLattice(context, canvas.width/2, canvas.height/2, 500);
