@@ -10,8 +10,7 @@ function drawVineWithLattice(context, x, y, interations) {
   var branches = new Array();
   branches.push({
     points:new Array({x:x, y:y}, {x:x, y:y}, {x:x, y:y}, {x:x, y:y}), 
-    angle:0,
-    distanceToLattice:1000
+    angle:0
   });
   
   // Start drawing splines at t=0
@@ -105,29 +104,6 @@ function drawVineWithLattice(context, x, y, interations) {
   
   // Return interval
   return interval;
-}
-
-
-function distancePointToLine(point, line) {
-  
-  // Length of line segment
-  var L = Math.sqrt(Math.pow(line[1].x - line[0].x, 2) + Math.pow(line[1].y - line[0].y, 2));
-  
-  // Calculate position of projection along line segment
-  var r = ((point.x - line[0].x) * (line[1].x - line[0].x) + (point.y - line[0].y) * (line[1].y - line[0].y)) / Math.pow(L, 2);
-
-  // Calculate distance of point to projection
-  var s = ((line[0].y - point.y) * (line[1].x - line[0].x) - (line[0].x - point.x) * (line[1].y - line[0].y)) / Math.pow(L, 2);
-    
-  // Calculate perpendicular projection of point on line
-  if (r >= 0 && r <= 1) {
-    return Math.abs(s) * L;
-  } else {
-    return Math.min(
-      Math.sqrt(Math.pow(point.x - line[0].x, 2) + Math.pow(point.y - line[0].y, 2)),
-      Math.sqrt(Math.pow(point.x - line[1].x, 2) + Math.pow(point.y - line[1].y, 2))
-    );
-  }
 }
 
 var canvas = document.getElementById("theCanvas");
