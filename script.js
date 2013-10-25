@@ -4,12 +4,13 @@ function drawVineWithLattice(context, x, y, interations) {
   
   // Set stroke colour
   context.lineWidth = 0.5;
-  context.strokeStyle = "green";
+  context.strokeStyle = "rgb(0," + Math.floor(Math.random() * 150 + 50)+",0)";
 
   // Create initial branch
   var branches = new Array();
   branches.push({
     points:new Array({x:x, y:y}, {x:x, y:y}, {x:x, y:y}, {x:x, y:y}), 
+    color: "rgb(0," + Math.floor(Math.random() * 150 + 50)+",0)",
     angle:0
   });
   
@@ -31,6 +32,7 @@ function drawVineWithLattice(context, x, y, interations) {
       var cy = (-branches[i].points[0].y + branches[i].points[2].y) / 2;
       var dx = (branches[i].points[0].x + 4*branches[i].points[1].x + branches[i].points[2].x) / 6;
       var dy = (branches[i].points[0].y + 4*branches[i].points[1].y + branches[i].points[2].y) / 6;
+      context.strokeStyle = branches[i].color;
       context.beginPath();
       context.moveTo(
         ax*Math.pow(t, 3) + bx*Math.pow(t, 2) + cx*t + dx, 
@@ -78,6 +80,7 @@ function drawVineWithLattice(context, x, y, interations) {
               branches[j].points[3],
               {x:x2, y:y2}
             ),
+            color: "rgb(0," + Math.floor(Math.random() * 150 + 50)+",0)",
             angle:angle
           });
         }
