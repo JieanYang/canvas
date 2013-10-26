@@ -1,6 +1,24 @@
 //Thanks to http://www.maissan.net/articles/simulating-vines/ !
+function dist(a,b) {
+  return Math.sqrt(Math.pow(a,2) + Math.pow(b,2));
+}
+function drawLeaf(context, startX, startY, height, width, angle, color) {
+  context.beginPath();
+  context.strokeStyle = "green";
+  context.bezierCurveTo(startX, startY, startX + Math.cos(angle + Math.atan2(width/2, height/2)) * dist(height/2,width/2), startY - Math.sin(angle + Math.atan2(width/2, height/2)) * dist(height/2,width/2), startX + Math.cos(angle) * height, startY - Math.sin(angle) * height);
+  context.fillStyle = color;
+  context.stroke();
+  context.fill();
+  context.closePath();
+  context.beginPath();
+  context.bezierCurveTo(startX, startY, startX + Math.cos(angle - Math.atan2(width/2, height/2)) * dist(height/2,width/2), startY - Math.sin(angle - Math.atan2(width/2, height/2)) * dist(height/2,width/2), startX + Math.cos(angle) * height, startY - Math.sin(angle) * height);
+  context.fillStyle = color;
+  context.stroke();
+  context.fill();
+  context.closePath();
+}
 
-function drawVines(context, x, y, interations) {
+function drawVines(context, x, y, iterations) {
   
   // Set stroke colour
   context.lineWidth = 1;
@@ -43,7 +61,19 @@ function drawVines(context, x, y, interations) {
         ay*Math.pow(t+0.1, 3) + by*Math.pow(t+0.1, 2) + cy*(t+0.1) + dy
       );
       context.stroke();
-      context.closePath();      
+      // if(i % 100 == 95 && Math.floor(t * 2) % 20 == 1) {
+      //   context.arc(
+      //     ax*Math.pow(t, 3) + bx*Math.pow(t, 2) + cx*t + dx, 
+      //     ay*Math.pow(t, 3) + by*Math.pow(t, 2) + cy*t + dy,
+      //     5, 0, 2 * Math.PI, false
+      //   );
+      //   context.fillStyle = 'red';
+      //   context.fill();
+      // }
+      context.closePath();  
+      if(i % 100 == 5 && Math.floor(t * 2) % 20 == 1 && iterations < 100) {
+        drawLeaf(context, dx, dy, 20, 20, branches[i].angle, 'green');
+      }  
     }
     
     // Advance t
@@ -66,7 +96,7 @@ function drawVines(context, x, y, interations) {
           
 
           // Generate random length
-          var length = Math.random() * 15 + 4;
+          var length = Math.random() * 15 + 10;
           
           // Calculate new point
           var x2 = branches[j].points[3].x + Math.sin(Math.PI * angle / 180) * length;
@@ -88,7 +118,7 @@ function drawVines(context, x, y, interations) {
       
       // Sort branches by distance to lattice
 
-      while (new_branches.length > 150) {
+      while (new_branches.length > 20) {
         new_branches.splice(Math.floor(Math.random() * new_branches.length), 1);
       } 
       
@@ -99,9 +129,9 @@ function drawVines(context, x, y, interations) {
       t = 0;
     }
     
-    // Count interations
-    interations--;
-    if (interations < 0) clearInterval(interval);
+    // Count iterations
+    iterations--;
+    if (iterations < 0) clearInterval(interval);
       
   }, 16.67);
   
@@ -113,4 +143,5 @@ var canvas = document.getElementById("theCanvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var context = canvas.getContext("2d");
+// drawLeaf(context, canvas.width/2, canvas.height/2, 30, 30, Math.PI/3, 'green');
 drawVines(context, canvas.width/2, canvas.height/2, 1000);
