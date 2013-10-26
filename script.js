@@ -31,6 +31,8 @@ function drawVines(context, x, y, iterations) {
     color: "rgb(0," + Math.floor(Math.random() * 150 + 50)+",0)",
     angle:0
   });
+
+  var leaves = new Array();
   
   // Start drawing splines at t=0
   var t = 0;
@@ -61,19 +63,22 @@ function drawVines(context, x, y, iterations) {
         ay*Math.pow(t+0.1, 3) + by*Math.pow(t+0.1, 2) + cy*(t+0.1) + dy
       );
       context.stroke();
-      // if(i % 100 == 95 && Math.floor(t * 2) % 20 == 1) {
-      //   context.arc(
-      //     ax*Math.pow(t, 3) + bx*Math.pow(t, 2) + cx*t + dx, 
-      //     ay*Math.pow(t, 3) + by*Math.pow(t, 2) + cy*t + dy,
-      //     5, 0, 2 * Math.PI, false
-      //   );
-      //   context.fillStyle = 'red';
-      //   context.fill();
-      // }
       context.closePath();  
-      if(i % 100 == 5 && Math.floor(t * 2) % 20 == 1 && iterations < 100) {
-        drawLeaf(context, dx, dy, 20, 20, branches[i].angle, 'green');
+      if(i % 3 == 2 && t + 0.1 >= 1) {
+        leaves.push({
+          x: dx, y: dy, width: 0, height: 0, angle: branches[i].angle, color: 'green'
+        })
+        // drawLeaf(context, dx, dy, 20, 20, branches[i].angle, 'green');
       }  
+    }
+
+    for(var i in leaves) {
+      var leaf = leaves[i]
+      if(leaf.width < 20) {
+        leaf.width += 1;
+        leaf.height += 1;
+        drawLeaf(context, leaf.x, leaf.y, leaf.height, leaf.width, leaf.angle, leaf.color);
+      }
     }
     
     // Advance t
@@ -115,8 +120,6 @@ function drawVines(context, x, y, iterations) {
           });
         }
       }
-      
-      // Sort branches by distance to lattice
 
       while (new_branches.length > 20) {
         new_branches.splice(Math.floor(Math.random() * new_branches.length), 1);
