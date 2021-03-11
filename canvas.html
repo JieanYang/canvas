@@ -59,7 +59,21 @@ function Circle(x, y, dx, dy, radius) {
 
 }
 
-var circle = new Circle(200, 200, 3, 3, 30);
+
+
+var circleArray = [];
+for(var i = 0; i < 100; i++) {
+	var x = Math.random() * innerWidth;
+	var y = Math.random() * innerHeight;
+	var dx = (Math.random() - 0.5) * 8;
+	var dy = (Math.random() - 0.5) * 8;
+	var radius = 30;
+
+	var circle = new Circle(x, y, dx, dy, radius);
+	circleArray.push(circle);
+
+}
+
 
 
 function animate() {
@@ -68,10 +82,19 @@ function animate() {
 	c.clearRect(0, 0, innerWidth, innerHeight);
 
 
-	circle.draw();
+	for(var i=0;i<circleArray.length; i++) {
 
 
-	circle.update();
+		var circle = circleArray[i];
+
+		circle.draw();
+
+
+		circle.update();
+
+
+	}
+
 
 
 
