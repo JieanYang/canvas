@@ -39,6 +39,18 @@
 	}
 
 
+	// Redraw the circle every time the mosue moves
+	canvas.addEventListener('mousemove', function(e) {
+		drawCircle(e.clientX, e.clientY);
+	})
+
+
+	// Clear the canvas when the mouse leaves the canvas region
+	canvas.addEventListener('mouseout', function(e) {
+		c.clearRect(0, 0, canvas.width, canvas.height);
+	})
+
+
 	drawCircle(canvas.width / 2, canvas.height / 2);
 
 
