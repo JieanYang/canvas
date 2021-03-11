@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <title>Mouse follower</title>
+   </head>
+
+   <body>
+
+
+<canvas id="canvas" width="1000" height="500" style="border:1px solid #c3c3c3;">
+您的浏览器不支持 HTML5 canvas 标签。
+</canvas>
+
+
+<script>
+	
+	var canvas = document.getElementById("canvas");
+	var c = canvas.getContext("2d");
+	var radius = 30;
+
+	
+	function drawCircle(mouseX, mouseY){
+	  // Clear the background
+	  c.clearRect(0, 0, canvas.width, canvas.height);
+	  
+	  // Establish the circle path
+	  c.beginPath();
+	  c.arc(mouseX, mouseY, radius, 0 , 2 * Math.PI, false);
+	  
+	  // Fill the circle
+	  c.fillStyle = '00F0FF';
+	  c.fill();
+	  
+	  // Outline (stroke) the circle
+	  c.lineWidth = 4;
+	  c.strokeStyle = 'black';
+	  c.stroke();
+	}
+
+
+	drawCircle(canvas.width / 2, canvas.height / 2);
+
+
+</script>
+
+
+
+   </body>
+</html>
