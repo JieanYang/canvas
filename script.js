@@ -22,8 +22,9 @@ function drawVines(context, x, y, iterations) {
   
   // Set stroke colour
   context.lineWidth = 1;
-  context.strokeStyle = "rgb(0," + Math.floor(Math.random() * 150 + 50)+",0)";
+  // context.strokeStyle = "rgb(0," + Math.floor(Math.random() * 150 + 50)+",0)"; // useless color
 
+  
   // Create initial branch
   var branches = new Array();
   branches.push({
@@ -31,7 +32,7 @@ function drawVines(context, x, y, iterations) {
     color: "rgb(0," + Math.floor(Math.random() * 150 + 50)+",0)",
     angle:0
   });
-
+  
   var leaves = new Array();
   
   // Start drawing splines at t=0
@@ -64,7 +65,7 @@ function drawVines(context, x, y, iterations) {
       );
       context.stroke();
       context.closePath();  
-      if(i % 3 == 2 && t + 0.1 >= 1) {
+      if(i % 6 == 2 && t + 0.1 >= 1) {
         leaves.push({
           x: dx, y: dy, width: 0, height: 0, angle: branches[i].angle, color: 'green'
         })
@@ -81,6 +82,8 @@ function drawVines(context, x, y, iterations) {
       }
     }
     
+
+
     // Advance t
     t += 0.1;
     
@@ -97,7 +100,8 @@ function drawVines(context, x, y, iterations) {
         for (var k = 0; k < 2; k++) {
           
           // Generate random deviation from previous angle
-          var angle = branches[j].angle - (Math.random() * 180 - 90);         
+          // var angle = branches[j].angle - (Math.random() * 180 - 90);         
+          var angle = Math.random() * 180 - 90;
           
 
           // Generate random length
@@ -137,6 +141,7 @@ function drawVines(context, x, y, iterations) {
     if (iterations < 0) clearInterval(interval);
       
   }, 16.67);
+
   
   // Return interval
   return interval;
@@ -147,4 +152,4 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var context = canvas.getContext("2d");
 // drawLeaf(context, canvas.width/2, canvas.height/2, 30, 30, Math.PI/3, 'green');
-drawVines(context, canvas.width/2, canvas.height/2, 1000);
+drawVines(context, canvas.width/2, canvas.height/2, 300);
