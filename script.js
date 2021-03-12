@@ -147,7 +147,7 @@ function drawVines(context, x, y, iterations) {
   return interval;
 }
 
-var canvas = document.getElementById("theCanvas");
+var canvas = document.getElementById("canvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var context = canvas.getContext("2d");
