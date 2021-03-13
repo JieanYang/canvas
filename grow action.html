@@ -84,6 +84,8 @@
         lines.add(new Line(width / 2, height, -Math.PI / 2));
 
         function run() {
+            // if clean by clearRect function, it will be like fireworks
+            // ctx.clearRect(0, 0, canvas.width, canvas.height);
             requestAnimationFrame(run);
             // make the view move to top
             ctx.drawImage(canvas, 0, 1);
