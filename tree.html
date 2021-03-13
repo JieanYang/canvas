@@ -9,9 +9,16 @@
     <script>
     var drawtree = function (ctx,startx,starty,length,angle,depth,branchWidth){
         var rand=Math.random,
-        n_length,n_angle,n_depth,maxbranch=4,
-        endx,endy,maxangle=2 * Math.PI / 4;
+            n_length,
+            n_angle,
+            n_depth,
+            maxbranch=4,
+            endx,
+            endy,
+            maxangle=2 * Math.PI / 4;
         var subbranch;
+
+
         ctx.beginPath();
         ctx.moveTo(startx,starty);
         endx=startx + length * Math.cos(angle);
@@ -19,21 +26,29 @@
         ctx.lineCap='round';
         ctx.lineWidth=branchWidth;
         ctx.lineTo(endx,endy);
-        if(depth<=2 ){
+
+        if(depth <= 5 ){
             //树的枝干
             ctx.strokeStyle= 'rgb(0,' + (((rand() * 64) +128) >>0) + ',0)';
         }
         else{
             //树的叶子
-            ctx.strokeStyle= 'rgb(0,' + (((rand() * 64) +64) >>0) + ',50,25)';
+            ctx.strokeStyle= 'rgb(' + (((rand() * 64) +64) >>0) + ',50,25)';
         }
+        
+        // draw 
         ctx.stroke();
+
+        // calculate for next
         n_depth = depth-1;
-        //判断树是否结束
+        
+        // 判断树是否结束，生长结束
         if(!n_depth){
             return;
         }
+
         subbranch= (rand() * (maxbranch-1)) + 1;
+
         branchWidth *=0.5; 
         for(var i=0;i<subbranch;i++){
             n_angle = angle +rand() * maxangle -maxangle *0.5;
@@ -48,7 +63,10 @@
     var canvas=document.getElementById('d1');
     var ctx= canvas.getContext('2d');
     //初始化的树
+    // grow top
     drawtree(ctx,300,470,100,-Math.PI / 2, 12, 12);
+    // grow down
+    drawtree(ctx,300,100,100,Math.PI / 2, 12, 12);
     </script>
 </body>
 </html>
