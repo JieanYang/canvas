@@ -30,11 +30,6 @@ function drawLeaf(context, startX, startY, height, width, angle, color) {
 }
 
 function drawBean_v1(x, y) {
-  
-  context.fillRect(30,136, 60, 70)
-
-  context.scale(2, 2);
-  context.translate(-15, -15);
   // context.rotate(30 * Math.PI/180);
 
 
@@ -59,6 +54,9 @@ function drawBean_v1(x, y) {
 
 drawLeaf(context, canvas.width/2, canvas.height/2, 30, 30, Math.PI/3, 'green');
 
+context.fillRect(30,136, 60, 70)
+context.scale(2, 2);
+context.translate(-15, -15);
 drawBean_v1(); 
 
 
@@ -90,7 +88,7 @@ function drawBean_v2_wrong(x, y) {
 
 function drawBean_v3(x, y) {
 
-  context.scale(.5, .5);
+  
   // context.translate(-15, -15);
   // context.rotate(30 * Math.PI/180);
 
@@ -112,6 +110,17 @@ function drawBean_v3(x, y) {
   
 }
 
+context.scale(.5, .5);
 drawBean_v3(300, 500);
 
 
+
+
+// context.scale(.5, .5);
+context.translate(15, 15);
+context.save();
+// Ajuste the coordinate point location
+context.translate(canvas.width/2,canvas.height/2);
+context.rotate(30 * Math.PI/180);
+drawBean_v3(0, 0);
+context.restore();
