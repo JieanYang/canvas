@@ -63,7 +63,7 @@ drawBean_v1();
 
 
 // @NO:This is a scale, but not a function draw iamge wherever
-function drawBean_v2(x, y) {
+function drawBean_v2_wrong(x, y) {
   
   context.scale(1, 1);
   // Coondition drawBean_v2(70, 30) equal to scale(2, 2) with drawBean_v2(35, 15)
@@ -86,4 +86,32 @@ function drawBean_v2(x, y) {
 
   
 }
+
+
+function drawBean_v3(x, y) {
+
+  context.scale(.5, .5);
+  // context.translate(-15, -15);
+  // context.rotate(30 * Math.PI/180);
+
+
+  context.beginPath();
+  context.moveTo(x,y);
+  // context.moveTo(35,15);
+  context.strokeStyle = "#1d1d1d";
+  context.fillStyle = "#fdbd05";
+  context.bezierCurveTo(x+10, y+2, x+10, y+5, x+10, y+10);
+  context.bezierCurveTo(x+10, y+20, x, y+15, x, y+25);
+  context.bezierCurveTo(x, y+35, x+2, y+25, x+3, y+45);
+  context.bezierCurveTo(x+2, y+50, x-2, y+53, x-5, y+53);
+  context.bezierCurveTo(x-20, y+53, x-20, y+33 ,x-20, y+30);
+  context.bezierCurveTo(x-20, y+20, x-15, y, x, y);
+  context.stroke();
+  context.fill();
+  context.closePath();
+  
+}
+
+drawBean_v3(300, 500);
+
 
