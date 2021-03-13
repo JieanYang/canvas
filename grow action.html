@@ -6,7 +6,7 @@
 
     <style>
         body {
-            position: absolute;
+            /*position: absolute;*/
             margin: 0;
             padding: 0;
             width: 100%;
@@ -18,13 +18,13 @@
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 120%;
+            height: 100%;
             background: #000;
         }
     </style>    
 </head>
 <body>
-    <canvas id='canvas' style="border:dashed 2px #ccc;"></canvas>
+    <canvas id='canvas'></canvas>
     <script>
         class Line {
             constructor(x, y, a) {
@@ -38,15 +38,19 @@
                 ctx.moveTo(this.x, this.y + 1);
                 this.x += 6 * Math.cos(this.ang);
                 this.y += 6 * Math.sin(this.ang);
+
+                // Calculate angle
                 this.angVel += 0.2 * (Math.random() - Math.random());
                 this.angVel *= this.angAcc;
                 this.ang += this.angVel;
+
                 if (Math.random() > 0.98) {
                     if (this.angAcc === 0.4) this.angAcc = 0.98;
                     else this.angAcc = 0.4;
                 }
                 ctx.lineTo(this.x, this.y);
                 if (Math.random() > 0.96 && numLines < 20) {
+                    // add new line form bottom center
                     lines.add(new Line(width / 2, height, -Math.PI / 2));
                     numLines++;
                 }
@@ -55,6 +59,7 @@
                         numLines--;
                         lines.delete(this);
                         ctx.beginPath();
+                        // draw flower before finish
                         for (let i = 0; i < 2 * Math.PI; i += 0.314) {
                             ctx.moveTo(this.x, this.y);
                             ctx.lineTo(this.x + (5 * Math.random() + 12) * Math.cos(i), this.y + (5 * Math.random() + 12) * Math.sin(i));
@@ -64,6 +69,7 @@
                 }
             }
         }
+
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         const width = canvas.width = canvas.offsetWidth * 1;
@@ -72,12 +78,14 @@
         const lines = new Set();
         let numLines = 0;
         let y = 0;
+        // background: white
         ctx.fillStyle = "#fff";
         ctx.fillRect(0, 0, width, height);
         lines.add(new Line(width / 2, height, -Math.PI / 2));
 
         function run() {
             requestAnimationFrame(run);
+            // make the view move to top
             ctx.drawImage(canvas, 0, 1);
             for (let line of lines) {
                 ctx.beginPath();
