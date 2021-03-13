@@ -34,7 +34,7 @@ function drawBean_v1(x, y) {
   context.fillRect(30,136, 60, 70)
 
   context.scale(2, 2);
-  // context.translate(100, 0)
+  context.translate(-15, -15);
   // context.rotate(30 * Math.PI/180);
 
 
@@ -44,7 +44,6 @@ function drawBean_v1(x, y) {
   context.strokeStyle = "#1d1d1d";
   context.fillStyle = "#fdbd05";
   context.bezierCurveTo(45, 17, 45, 20, 45, 25);
-  // context.bezierCurveTo(45, 15, 45, 15, 45, 25);
   context.bezierCurveTo(45, 35, 35, 30, 35, 40);
   context.bezierCurveTo(35, 50, 37, 40, 38, 60);
   context.bezierCurveTo(37, 65, 33, 68, 30, 68);
@@ -63,30 +62,28 @@ drawLeaf(context, canvas.width/2, canvas.height/2, 30, 30, Math.PI/3, 'green');
 drawBean_v1(); 
 
 
-
-// function drawBean_v2(x, y) {
+// @NO:This is a scale, but not a function draw iamge wherever
+function drawBean_v2(x, y) {
   
-//   context.scale(2, 2);
-//   // context.translate(100, 0)
-//   // context.rotate(30 * Math.PI/180);
+  context.scale(1, 1);
+  // Coondition drawBean_v2(70, 30) equal to scale(2, 2) with drawBean_v2(35, 15)
+  // context.scale(2, 2);
 
-//   context.beginPath();
-//   context.moveTo(x/35,y/15);
-//   context.strokeStyle = "#1d1d1d";
-//   context.fillStyle = "#fdbd05";
-//   context.bezierCurveTo(x*45/35, y*17/15, x*45/35, y*20/15, x*45/35, y*25/15);
-//   // context.bezierCurveTo(x*45/35, y*15/15, x*45/35, y*15/15, x*45/35, y*25/15);
-//   context.bezierCurveTo(x*45/35, y*35/15, x*35/35, y*30/15, x*35/35, y*40/15);
-//   context.bezierCurveTo(x*35/35, y*50/15, x*37/35, y*40/15, x*38/35, y*60/15);
-//   context.bezierCurveTo(x*37/35, y*65/15, x*33/35, y*68/15, x*30/35, y*68/15);
-//   context.bezierCurveTo(x*15/35, y*68/15, x*15/35, y*48/15 ,x*15/35, y*45/15);
-//   context.bezierCurveTo(x*15/35, y*35/15, x*20/35, y*15/15, x*35/35, y*15/15);
-//   context.stroke();
-//   context.fill();
-//   context.closePath();
+  context.beginPath();
+  context.moveTo(x,y);
+  context.strokeStyle = "#1d1d1d";
+  context.fillStyle = "#fdbd05";
+  context.bezierCurveTo(x*45/35, y*17/15, x*45/35, y*20/15, x*45/35, y*25/15);
+  context.bezierCurveTo(x*45/35, y*35/15, x*35/35, y*30/15, x*35/35, y*40/15);
+  context.bezierCurveTo(x*35/35, y*50/15, x*37/35, y*40/15, x*38/35, y*60/15);
+  context.bezierCurveTo(x*37/35, y*65/15, x*33/35, y*68/15, x*30/35, y*68/15);
+  context.bezierCurveTo(x*15/35, y*68/15, x*15/35, y*48/15 ,x*15/35, y*45/15);
+  context.bezierCurveTo(x*15/35, y*35/15, x*20/35, y*15/15, x*35/35, y*15/15);
+  context.stroke();
+  context.fill();
+  context.closePath();
 
 
   
-// }
+}
 
-// drawBean_v2()
