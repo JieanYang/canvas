@@ -124,3 +124,55 @@ context.translate(canvas.width/2,canvas.height/2);
 context.rotate(30 * Math.PI/180);
 drawBean_v3(0, 0);
 context.restore();
+
+
+
+
+class Line {
+  constructor(x, y ,angle) {
+    this.x = x;
+    this.y = y;
+    this.angle = angle;
+  }
+  anim() {
+    context.moveTo(this.x, this.y);
+    // 根据角度计算增长的下一个点
+    this.x += 6 * Math.cos(this.angle);
+    this.y += 6 * Math.sin(this.angle);
+
+    // 新的角度计算
+    var maxangle= Math.PI / 8;
+    this.angle += Math.random() * maxangle - maxangle/2;
+    
+    context.lineTo(this.x, this.y);
+
+    // 判断增长 终止的条件
+    if(this.y + 10 > canvas.height ) {
+      console.log("stop");
+      lines.delete(this);
+      return;
+    }
+  }
+}
+const lines = new Set();
+var line1 = new Line(canvas.width/2, 0, 90 * Math.PI/180);
+var line2 = new Line(canvas.width/2, 0, 90 * Math.PI/180);
+var line3 = new Line(canvas.width/2, 0, 90 * Math.PI/180);
+var line4 = new Line(canvas.width/2, 0, 90 * Math.PI/180);
+lines.add(line1);
+lines.add(line2);
+lines.add(line3);
+lines.add(line4);
+context.strokeStyle = "black";
+function root_simple_grow() {
+  requestAnimationFrame(root_simple_grow);
+
+  for(let line of lines) {
+    context.beginPath();
+    line.anim();
+    context.stroke();    
+  }
+
+}
+
+root_simple_grow();
