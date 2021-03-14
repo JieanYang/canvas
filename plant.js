@@ -25,7 +25,8 @@ class Interface {
 
 		ctx.save();
 		ctx.font = ctx.font.replace(/\d+px/, "16px");
-		ctx.strokeText('Bean grow', 10, 30);
+		ctx.fillStyle = "black";
+		ctx.strokeText('Bean Grow', 10, 30);
 		ctx.restore();
 
 		ctx.restore()
@@ -37,7 +38,7 @@ interface.draw_button_bean_grow();
 
 class Plant {
 	constructor(x, y) {
-		status: "inital", 
+		this.status = "inital";
 		this.bean = {
 			x: x, 
 			y: y
@@ -98,11 +99,12 @@ console.log(plant)
 function run_anime() {
 	requestAnimationFrame(run_anime);
 
-	switch(this.status) {
+	switch(plant.status) {
 		case 'inital':
+			console.log('inital');
 			break;
-		case 'bean grow':
-			console.log('grow')
+		case 'beanGrow':
+			console.log('grow');
 			break;
 		default:
 			console.log('no status');
@@ -112,4 +114,16 @@ function run_anime() {
 run_anime();
 
 
+
+
+canvas.addEventListener('click',function(e){
+  // console.log('click mouse', e.pageX, e.pageY)
+  if(
+  	(e.pageX >= 20 && e.pageX <= 120)
+  	&&
+  	(e.pageY >= 10 && e.pageY <= 60)
+  ) {
+  	plant.status = 'beanGrow';
+  }
+});
 
