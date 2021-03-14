@@ -4,6 +4,8 @@ canvas.height = window.innerHeight;
 var context = canvas.getContext("2d");
 
 
+
+
 class background {
 	constructor() {
 
@@ -18,6 +20,14 @@ class Plant {
 			x: x, 
 			y: y
 		}
+	}
+	set_timeSetting(obj) {
+		this.FPS = obj.FPS;
+		this.FPS_origin = obj.FPS;
+		this.delay = obj.delay;
+		this.delay_origin = obj.delay;
+		this.previous = obj.previous;
+		this.previous_origin = obj.previous;
 	}
 	draw_bean(x, y, rotation, options) {
 
@@ -41,15 +51,6 @@ class Plant {
 
 	}
 
-	anime() {
-		switch(this.status) {
-			case 'inital':
-				beak;
-			default:
-				consol.log('no status');
-		}
-	}
-
 }
 
 
@@ -59,8 +60,31 @@ plant.draw_bean(plant.bean.x, plant.bean.y, 30 * Math.PI/180, {
 	strokeStyle: "#1d1d1d", 
 	fillStyle: "#fdbd05"
 });
+let FPS = 60;
+plant.set_timeSetting({
+	FPS: FPS,  // Frames per second
+	delay: 1000/FPS, 
+	previous: 0, 
+});
+
+console.log(plant)
 
 
+function run_anime() {
+	requestAnimationFrame(run_anime);
+
+	switch(this.status) {
+		case 'inital':
+			break;
+		case 'bean grow':
+			console.log('grow')
+			break;
+		default:
+			console.log('no status');
+	}
+}
+
+run_anime();
 
 
 
