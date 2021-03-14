@@ -58,7 +58,7 @@ context.fillRect(30,136, 60, 70)
 context.scale(2, 2);
 context.translate(-15, -15);
 drawBean_v1(); 
-
+context.translate(15, 15);
 
 // @NO:This is a scale, but not a function draw iamge wherever
 function drawBean_v2_wrong(x, y) {
@@ -117,13 +117,16 @@ drawBean_v3(300, 500);
 
 
 // context.scale(.5, .5);
-context.translate(15, 15);
 context.save();
 // Ajuste the coordinate point location
 context.translate(canvas.width/2,canvas.height/2);
 context.rotate(30 * Math.PI/180);
 drawBean_v3(0, 0);
 context.restore();
+
+
+
+
 
 
 
@@ -226,12 +229,31 @@ class Line_arc {
     this.step_y += this.step_y_change;
 
     context.lineTo(this.x, this.y);
-    // drawBean_v3(this.x, this.y)
 
 
 
     if(this.y > this.y_end || this.x > this.x_end ) {
-      console.log("stop line arc")
+      console.log("stop line arc with line")
+      return;
+    }
+
+
+    context.stroke();
+  }
+  arc_bean() {
+    context.beginPath();
+    context.moveTo(this.x, this.y);
+    drawBean_v3(this.x, this.y)
+    // console.log("old:", this.x, this.y)
+
+    this.x += this.step_x;
+    this.y += this.step_y;
+
+    this.step_y += this.step_y_change;
+
+
+    if(this.y > this.y_end || this.x > this.x_end ) {
+      console.log("stop line arc with bean")
       return;
     }
 
@@ -241,10 +263,9 @@ class Line_arc {
 }
 
 
-var line_arc = new Line_arc(100, 100, canvas.width - 10, canvas.height - 10, 50, 50, -3);
-
-function point_with_arc_path () {
-  requestAnimationFrame(point_with_arc_path);
+var line_arc_with_line = new Line_arc(100, 100, canvas.width - 10, canvas.height - 10, 50, 50, -3);
+function point_with_arc_path_with_line () {
+  requestAnimationFrame(point_with_arc_path_with_line);
 
   const now = Date.now();
 
@@ -256,9 +277,30 @@ function point_with_arc_path () {
   // previous = now;
 
 
-  line_arc.arc();
+  line_arc_with_line.arc();
   // console.log("arc function")
 
 }
-point_with_arc_path();
+point_with_arc_path_with_line();
+
+
+var line_arc_with_bean = new Line_arc(100, 100, canvas.width - 10, canvas.height - 10, 50, 50, -3);
+function point_with_arc_path_with_bean () {
+  requestAnimationFrame(point_with_arc_path_with_bean);
+
+  const now = Date.now();
+
+  // if(now - previous < delay) {
+  //   // Do nothing
+  //   return;
+  // }
+
+  // previous = now;
+
+
+  line_arc_with_bean.arc_bean();
+  // console.log("arc function")
+
+}
+point_with_arc_path_with_bean();
 
