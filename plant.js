@@ -11,11 +11,14 @@ class Interface {
 
 	}
 	draw_button_bean_grow() {
+		ctx.save();
+		ctx.translate(20, 10);
+
 		ctx.save()
 		ctx.lineWidth = 2;
 		ctx.fillStyle = '#fff';
 		ctx.strokeStyle = '#9e9e9e';
-		ctx.rect(2, 2, 100, 50);
+		ctx.rect(0, 0, 100, 50);
 		ctx.fill();
 		ctx.stroke();
 		ctx.restore();
@@ -25,6 +28,7 @@ class Interface {
 		ctx.strokeText('Bean grow', 10, 30);
 		ctx.restore();
 
+		ctx.restore()
 	}
 }
 var interface = new Interface();
