@@ -133,6 +133,10 @@ class Line {
     this.x = x;
     this.y = y;
     this.angle = angle;
+
+    this.x_limit_right = x + 150;
+    this.x_limit_left = x - 150;
+    this.y_limit = y + 400;
   }
   anim() {
     context.moveTo(this.x, this.y);
@@ -147,7 +151,11 @@ class Line {
     context.lineTo(this.x, this.y);
 
     // 判断增长 终止的条件
-    if(this.y + 10 > canvas.height ) {
+    if(this.y + 10 > this.y_limit || this.y + 10 > canvas.height ) {
+      console.log("stop");
+      lines.delete(this);
+      return;
+    } else if(this.x + 10 > this.x_limit_right || this.x + 10 < this.x_limit_left ) {
       console.log("stop");
       lines.delete(this);
       return;
@@ -164,8 +172,24 @@ lines.add(line2);
 lines.add(line3);
 lines.add(line4);
 context.strokeStyle = "black";
+
+
+
+const FPS = 60; // Frames per second
+const delay = 1000/FPS;
+let previous = 0;
+
 function root_simple_grow() {
   requestAnimationFrame(root_simple_grow);
+
+  const now = Date.now();
+
+  if(now - previous < delay) {
+    // Do nothing
+    return;
+  }
+
+  previous = now;
 
   for(let line of lines) {
     context.beginPath();
