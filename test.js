@@ -163,10 +163,10 @@ class Line {
   }
 }
 const lines = new Set();
-var line1 = new Line(canvas.width/2, 0, 90 * Math.PI/180);
-var line2 = new Line(canvas.width/2, 0, 90 * Math.PI/180);
-var line3 = new Line(canvas.width/2, 0, 90 * Math.PI/180);
-var line4 = new Line(canvas.width/2, 0, 90 * Math.PI/180);
+var line1 = new Line(canvas.width/2, canvas.height/2 + 18, 90 * Math.PI/180);
+var line2 = new Line(canvas.width/2, canvas.height/2 + 18, 90 * Math.PI/180);
+var line3 = new Line(canvas.width/2, canvas.height/2 + 18, 90 * Math.PI/180);
+var line4 = new Line(canvas.width/2, canvas.height/2 + 18, 90 * Math.PI/180);
 lines.add(line1);
 lines.add(line2);
 lines.add(line3);
