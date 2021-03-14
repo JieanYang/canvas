@@ -175,9 +175,10 @@ context.strokeStyle = "black";
 
 
 
-const FPS = 60; // Frames per second
-const delay = 1000/FPS;
+let FPS = 60; // Frames per second
+let delay = 1000/FPS;
 let previous = 0;
+
 
 function root_simple_grow() {
   requestAnimationFrame(root_simple_grow);
@@ -200,3 +201,64 @@ function root_simple_grow() {
 }
 
 root_simple_grow();
+
+
+
+
+class Line_arc {
+  constructor(x, y, x_end, y_end, step_x, step_y, step_y_change) {
+    this.x = x;
+    this.y = y;
+    this.x_end = x_end;
+    this.y_end = y_end;
+    this.step_x = step_x;
+    this.step_y = step_y;
+    this.step_y_change = step_y_change;
+  }
+  arc() {
+    context.beginPath();
+    context.moveTo(this.x, this.y);
+    // console.log("old:", this.x, this.y)
+
+    this.x += this.step_x;
+    this.y += this.step_y;
+
+    this.step_y += this.step_y_change;
+
+    context.lineTo(this.x, this.y);
+    // drawBean_v3(this.x, this.y)
+
+
+
+    if(this.y > this.y_end || this.x > this.x_end ) {
+      console.log("stop line arc")
+      return;
+    }
+
+
+    context.stroke();
+  }
+}
+
+
+var line_arc = new Line_arc(100, 100, canvas.width - 10, canvas.height - 10, 50, 50, -3);
+
+function point_with_arc_path () {
+  requestAnimationFrame(point_with_arc_path);
+
+  const now = Date.now();
+
+  // if(now - previous < delay) {
+  //   // Do nothing
+  //   return;
+  // }
+
+  // previous = now;
+
+
+  line_arc.arc();
+  // console.log("arc function")
+
+}
+point_with_arc_path();
+
