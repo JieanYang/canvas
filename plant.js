@@ -77,7 +77,7 @@ class Plant {
 }
 
 
-ctx.translate(canvas.width/2, canvas.height/2+100);
+
 var plant = new Plant(0, 0);
 // Frames per second
 let FPS = 60; 
@@ -86,26 +86,32 @@ plant.set_timeSetting({
 	delay: 1000/FPS, 
 	previous: 0, 
 });
-
-
-plant.draw_bean(plant.bean.x, plant.bean.y, 30 * Math.PI/180, {
-	strokeStyle: "#1d1d1d", 
-	fillStyle: "#fdbd05"
-});
-
-console.log(plant)
-
-
+console.log(plant);
 function run_anime() {
 	requestAnimationFrame(run_anime);
 
 	switch(plant.status) {
 		case 'inital':
+			ctx.translate(canvas.width/2, canvas.height/2+100);
+			ctx.save();
+			plant.draw_bean(plant.bean.x, plant.bean.y, 30 * Math.PI/180, {
+				strokeStyle: "#1d1d1d", 
+				fillStyle: "#fdbd05"
+			});
+			ctx.restore();
+			ctx.fillRect(-50, 0, 50, 50);
+			// ctx.clearRect(-50, 0, 50, 50);
+
 			console.log('inital');
+			plant.status = 'prepare';
+			break;
+		case 'prepare':
+
 			break;
 		case 'beanGrow':
 			console.log('grow');
 			break;
+
 		default:
 			console.log('no status');
 	}
