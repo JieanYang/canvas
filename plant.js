@@ -101,12 +101,12 @@ class Plant {
 		this.previous_origin = obj.previous;
 	}
 	draw_bean(x, y, rotation, options) {
+		ctx.save();
 
 		ctx.rotate(rotation);
 
 		ctx.beginPath();
 		ctx.moveTo(x, y);
-		// ctx.moveTo(35,15);
 		ctx.strokeStyle = options.strokeStyle;
 		ctx.fillStyle = options.fillStyle;
 		ctx.bezierCurveTo(x, y+10, x-10, y+5, x-10, y+15);
@@ -117,6 +117,31 @@ class Plant {
 		ctx.bezierCurveTo(x, y-8, x, y-5, x, y);
 		ctx.stroke();
 		ctx.fill();
+
+		ctx.restore();
+	}
+	clear_bean(x, y, rotation) {
+		ctx.save();
+
+		ctx.rotate(rotation);
+
+		ctx.beginPath();
+		ctx.moveTo(x, y);
+		ctx.bezierCurveTo(x, y+10, x-10, y+5, x-10, y+15);
+		ctx.bezierCurveTo(x-10, y+25, x-8, y+15, x-7, y+35);
+		ctx.bezierCurveTo(x-8, y+40, x-12, y+43, x-15, y+43);
+		ctx.bezierCurveTo(x-30, y+43, x-30, y+23 ,x-30, y+20);
+		ctx.bezierCurveTo(x-30, y+10, x-25, y-10, x-10, y-10);
+		ctx.bezierCurveTo(x, y-8, x, y-5, x, y);
+
+		ctx.fillStyle = "rgb(217 133 34)";
+		ctx.fill();
+
+		ctx.strokeStyle = "rgb(217 133 34)";
+		ctx.lineWidth = 3;
+		ctx.stroke();
+
+		ctx.restore();
 	}
 	anime_bean_grow() {
 		ctx.scale(1.05, 1.05);
@@ -142,12 +167,13 @@ function run_anime() {
 		case 'inital':
 			ctx.save()
 			ctx.translate(canvas.width/2, canvas.height/2+100);
-			ctx.save();
+			
 			plant.draw_bean(plant.bean.x, plant.bean.y, 90 * Math.PI/180, {
 				strokeStyle: "#1d1d1d", 
 				fillStyle: "#fdbd05"
 			});
-			ctx.restore();
+			plant.clear_bean(plant.bean.x, plant.bean.y, 45 * Math.PI/180);
+
 			ctx.fillRect(0, 0, 50, 50);
 			// ctx.clearRect(-50, 0, 50, 50);
 			ctx.restore();
