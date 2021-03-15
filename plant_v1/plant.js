@@ -504,7 +504,7 @@ function run_anime() {
 			plant.status = "finish";
 			break;
 		case "finish":
-
+			return;
 			console.log("finish");
 			break;
 		default:
