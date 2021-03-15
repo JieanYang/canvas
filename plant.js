@@ -168,13 +168,13 @@ function run_anime() {
 			ctx.save()
 			ctx.translate(canvas.width/2, canvas.height/2+100);
 			
-			plant.draw_bean(plant.bean.x, plant.bean.y, 90 * Math.PI/180, {
+			plant.draw_bean(plant.bean.x, plant.bean.y, 0 * Math.PI/180, {
 				strokeStyle: "#1d1d1d", 
 				fillStyle: "#fdbd05"
 			});
-			plant.clear_bean(plant.bean.x, plant.bean.y, 45 * Math.PI/180);
+			// plant.clear_bean(plant.bean.x, plant.bean.y, 45 * Math.PI/180);
 
-			ctx.fillRect(0, 0, 50, 50);
+			// ctx.fillRect(0, 0, 50, 50);
 			// ctx.clearRect(-50, 0, 50, 50);
 			ctx.restore();
 
