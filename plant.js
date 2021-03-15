@@ -63,11 +63,13 @@ class Interface {
 		ctx.font = ctx.font.replace(/\d+px/, "16px");
 		ctx.fillStyle = "black";
 		ctx.strokeText('Bean Grow', 10, 30);
+		ctx.fillText('Bean Grow', 10, 30);
 		ctx.restore();
 
-		ctx.restore()
+		ctx.restore();
 	}
 }
+
 var interface = new Interface();
 interface.draw_soil(canvas.height/2 + 65);
 interface.draw_sky(canvas.height/2 + 65);
