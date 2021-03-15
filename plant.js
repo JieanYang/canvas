@@ -91,7 +91,7 @@ interface.draw_div_button_bean_grow();
 
 
 class Plant {
-	constructor(x, y, rotation) {
+	constructor({x, y, rotation}) {
 		this.status = "inital";
 		this.bean = {
 			x: x, 
@@ -175,15 +175,74 @@ class Time {
 }
 
 
+class Line {
+  constructor(x, y ,angle) {
+    this.x = x;
+    this.y = y;
+    this.angle = angle;
+
+    this.x_limit_right = x + 150;
+    this.x_limit_left = x - 150;
+    this.y_limit = y + 400;
+  }
+  anim() {
+  	ctx.save();
+
+  	ctx.strokeStyle = "black";
+
+    ctx.moveTo(this.x, this.y);
+    // 根据角度计算增长的下一个点
+    this.x += 6 * Math.cos(this.angle);
+    this.y += 6 * Math.sin(this.angle);
+
+    // 新的角度计算
+    var maxangle= Math.PI / 8;
+    this.angle += Math.random() * maxangle - maxangle/2;
+    
+    ctx.lineTo(this.x, this.y);
+
+    // 判断增长 终止的条件
+    if(this.y + 10 > this.y_limit || this.y + 10 > canvas.height ) {
+      console.log("root stop");
+      lines.delete(this);
+      return;
+    } else if(this.x + 10 > this.x_limit_right || this.x + 10 < this.x_limit_left ) {
+      console.log("root stop");
+      lines.delete(this);
+      return;
+    }
+
+    ctx.restore();
+  }
+}
+
+const lines = new Set();
+var line1 = new Line(canvas.width/2, canvas.height/2 + 100, 90 * Math.PI/180);
+var line2 = new Line(canvas.width/2, canvas.height/2 + 100, 90 * Math.PI/180);
+var line3 = new Line(canvas.width/2, canvas.height/2 + 100, 90 * Math.PI/180);
+var line4 = new Line(canvas.width/2, canvas.height/2 + 100, 90 * Math.PI/180);
+lines.add(line1);
+lines.add(line2);
+lines.add(line3);
+lines.add(line4);
 
 
-var plant = new Plant(0, 0, 0 * Math.PI/180);
+
+var data_bean = {
+	x: 0, 
+	y: 0, 
+	rotation: 50 * Math.PI/180, 
+}
+var data_root = {
+	rootNum: 4, 
+}
+var plant = new Plant(data_bean);
 console.log(plant);
 
 
 
 // Frames per second
-const FPS = 120;
+const FPS = 60;
 const delay = 1000/FPS;
 let previous = 0;
 function run_anime() {
@@ -228,8 +287,21 @@ function run_anime() {
 			break;
 
 		case "rootGrow":
+
+			for(let line of lines) {
+			    ctx.beginPath();
+			    line.anim();
+			    ctx.stroke();    
+			  }
+
+
+
+			if(lines.size == 0) {
+				plant.status = "beanRotation";
+			}
+
+
 			console.log("rootGrow");
-			plant.status = "beanRotation";
 			break;
 		case "beanRotation":
 
@@ -249,7 +321,7 @@ function run_anime() {
 
 			// console.log(plant.bean.rotation);
 
-			if(plant.bean.rotation > 90 * Math.PI/180) {
+			if(plant.bean.rotation > 75 * Math.PI/180) {
 				plant.status = "branchAndLeavesGrow";
 			}
 			
