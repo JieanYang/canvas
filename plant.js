@@ -4,6 +4,12 @@ canvas.height = window.innerHeight;
 var ctx = canvas.getContext("2d");
 
 
+var color = {
+	grass: "rgb(102 201 2)", 
+	soil: "rgb(217 133 34)", 
+	bean: "#fdbd05"
+}
+
 
 class Interface {
 	constructor() {
@@ -32,7 +38,7 @@ class Interface {
 	}
 	draw_grass(position_y, thickness) {
 		ctx.save();
-		ctx.fillStyle = "rgb(102 201 2)";
+		ctx.fillStyle = color.grass;
 		ctx.fillRect(0, position_y, canvas.width, thickness);
 
 		ctx.restore();
@@ -40,7 +46,7 @@ class Interface {
 	draw_soil(position_y) {
 		ctx.save();
 
-		ctx.fillStyle = "rgb(217 133 34)";
+		ctx.fillStyle = color.soil
 		ctx.fillRect(0, position_y, canvas.width, canvas.height - position_y);
 
 		ctx.fillStyle = "rgb(123 76 20)";
@@ -134,10 +140,10 @@ class Plant {
 		ctx.bezierCurveTo(x-30, y+10, x-25, y-10, x-10, y-10);
 		ctx.bezierCurveTo(x, y-8, x, y-5, x, y);
 
-		ctx.fillStyle = "rgb(217 133 34)";
+		ctx.fillStyle = color.soil
 		ctx.fill();
 
-		ctx.strokeStyle = "rgb(217 133 34)";
+		ctx.strokeStyle = color.soil
 		ctx.lineWidth = 3;
 		ctx.stroke();
 
@@ -170,7 +176,7 @@ function run_anime() {
 			
 			plant.draw_bean(plant.bean.x, plant.bean.y, 0 * Math.PI/180, {
 				strokeStyle: "#1d1d1d", 
-				fillStyle: "#fdbd05"
+				fillStyle: color.bean
 			});
 			// plant.clear_bean(plant.bean.x, plant.bean.y, 45 * Math.PI/180);
 
@@ -186,6 +192,7 @@ function run_anime() {
 			break;
 		case 'beanGrow':
 			console.log('grow');
+
 			break;
 
 		default:
