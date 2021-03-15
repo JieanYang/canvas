@@ -499,11 +499,12 @@ function run_anime() {
 			break;
 		case "branchAndLeavesGrow":
 
-			drawVines(ctx, canvas.width/2, canvas.height/2 + 100, 400);
+			drawVines(ctx, canvas.width/2, canvas.height/2 + 100, 350);
 			console.log("branchAndLeavesGrow");
 			plant.status = "finish";
 			break;
 		case "finish":
+
 			console.log("finish");
 			break;
 		default:
@@ -515,16 +516,20 @@ run_anime();
 
 
 
-
-canvas.addEventListener('click',function(e){
+function action_clickBeanGrowButton(e) {
   // console.log('click mouse', e.pageX, e.pageY)
   if(
+  	plant.status == "prepare"
+  	&&
   	(e.pageX >= 20 && e.pageX <= 120)
   	&&
   	(e.pageY >= 10 && e.pageY <= 60)
   ) {
+  	canvas.removeEventListener('click',action_clickBeanGrowButton);
   	console.log('go beanGrow')
   	plant.status = 'beanGrow';
   }
-});
+}
+canvas.addEventListener('click',action_clickBeanGrowButton);
+
 
