@@ -175,7 +175,7 @@ class Time {
 }
 
 
-class Line {
+class LineRoot {
   constructor(x, y ,angle) {
     this.x = x;
     this.y = y;
@@ -217,10 +217,10 @@ class Line {
 }
 
 const lines = new Set();
-var line1 = new Line(canvas.width/2, canvas.height/2 + 100, 90 * Math.PI/180);
-var line2 = new Line(canvas.width/2, canvas.height/2 + 100, 90 * Math.PI/180);
-var line3 = new Line(canvas.width/2, canvas.height/2 + 100, 90 * Math.PI/180);
-var line4 = new Line(canvas.width/2, canvas.height/2 + 100, 90 * Math.PI/180);
+var line1 = new LineRoot(canvas.width/2, canvas.height/2 + 100, 90 * Math.PI/180);
+var line2 = new LineRoot(canvas.width/2, canvas.height/2 + 100, 90 * Math.PI/180);
+var line3 = new LineRoot(canvas.width/2, canvas.height/2 + 100, 90 * Math.PI/180);
+var line4 = new LineRoot(canvas.width/2, canvas.height/2 + 100, 90 * Math.PI/180);
 lines.add(line1);
 lines.add(line2);
 lines.add(line3);
@@ -232,9 +232,6 @@ var data_bean = {
 	x: 0, 
 	y: 0, 
 	rotation: 50 * Math.PI/180, 
-}
-var data_root = {
-	rootNum: 4, 
 }
 var plant = new Plant(data_bean);
 console.log(plant);
@@ -318,6 +315,16 @@ function run_anime() {
 				fillStyle: color.bean, 
 				lineWidth: 1, 
 			});
+
+
+			ctx.save();
+
+			ctx.beginPath();
+			ctx.moveTo(plant.bean.x, plant.bean.y);
+			ctx.lineTo(plant.bean.x, plant.bean.y + 3);
+			ctx.stroke();			
+
+			ctx.restore();
 
 			// console.log(plant.bean.rotation);
 
