@@ -31,11 +31,12 @@ function drawLeaf(context, startX, startY, height, width, angle, color) {
 
 function drawBean_v1(x, y) {
   // context.rotate(30 * Math.PI/180);
+  context.save();
+
 
 
   context.beginPath();
   context.moveTo(35,15);
-  // context.moveTo(35,15);
   context.strokeStyle = "#1d1d1d";
   context.fillStyle = "#fdbd05";
   context.bezierCurveTo(45, 17, 45, 20, 45, 25);
@@ -46,7 +47,22 @@ function drawBean_v1(x, y) {
   context.bezierCurveTo(15, 35, 20, 15, 35, 15);
   context.stroke();
   context.fill();
-  context.closePath();
+
+  context.translate(300, 0);
+  context.beginPath();
+  context.moveTo(45,25);
+  context.strokeStyle = "#1d1d1d";
+  context.fillStyle = "#fdbd05";
+  context.bezierCurveTo(45, 35, 35, 30, 35, 40);
+  context.bezierCurveTo(35, 50, 37, 40, 38, 60);
+  context.bezierCurveTo(37, 65, 33, 68, 30, 68);
+  context.bezierCurveTo(15, 68, 15, 48 ,15, 45);
+  context.bezierCurveTo(15, 35, 20, 15, 35, 15);
+  context.bezierCurveTo(45, 17, 45, 20, 45, 25);
+  context.stroke();
+  context.fill();
+
+  context.restore();
 
 
   

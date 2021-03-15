@@ -105,16 +105,16 @@ class Plant {
 		ctx.rotate(rotation);
 
 		ctx.beginPath();
-		ctx.moveTo(x,y);
+		ctx.moveTo(x, y);
 		// ctx.moveTo(35,15);
 		ctx.strokeStyle = options.strokeStyle;
 		ctx.fillStyle = options.fillStyle;
-		ctx.bezierCurveTo(x+10, y+2, x+10, y+5, x+10, y+10);
-		ctx.bezierCurveTo(x+10, y+20, x, y+15, x, y+25);
-		ctx.bezierCurveTo(x, y+35, x+2, y+25, x+3, y+45);
-		ctx.bezierCurveTo(x+2, y+50, x-2, y+53, x-5, y+53);
-		ctx.bezierCurveTo(x-20, y+53, x-20, y+33 ,x-20, y+30);
-		ctx.bezierCurveTo(x-20, y+20, x-15, y, x, y);
+		ctx.bezierCurveTo(x, y+10, x-10, y+5, x-10, y+15);
+		ctx.bezierCurveTo(x-10, y+25, x-8, y+15, x-7, y+35);
+		ctx.bezierCurveTo(x-8, y+40, x-12, y+43, x-15, y+43);
+		ctx.bezierCurveTo(x-30, y+43, x-30, y+23 ,x-30, y+20);
+		ctx.bezierCurveTo(x-30, y+10, x-25, y-10, x-10, y-10);
+		ctx.bezierCurveTo(x, y-8, x, y-5, x, y);
 		ctx.stroke();
 		ctx.fill();
 	}
@@ -140,6 +140,7 @@ function run_anime() {
 
 	switch(plant.status) {
 		case 'inital':
+			ctx.save()
 			ctx.translate(canvas.width/2, canvas.height/2+100);
 			ctx.save();
 			plant.draw_bean(plant.bean.x, plant.bean.y, 90 * Math.PI/180, {
@@ -149,6 +150,7 @@ function run_anime() {
 			ctx.restore();
 			ctx.fillRect(0, 0, 50, 50);
 			// ctx.clearRect(-50, 0, 50, 50);
+			ctx.restore();
 
 			console.log('inital');
 			plant.status = 'prepare';
