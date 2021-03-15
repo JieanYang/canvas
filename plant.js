@@ -5,12 +5,48 @@ var ctx = canvas.getContext("2d");
 
 
 
-
 class Interface {
 	constructor() {
 
 	}
-	draw_button_bean_grow() {
+	draw_sky() {
+		ctx.save();
+
+
+
+		var gradient = ctx.createLinearGradient(0, 0,0, canvas.height/2);
+
+		// Add three color stops
+		gradient.addColorStop(0, 'rgb(36 183 246)');
+		gradient.addColorStop(.25, 'rgb(63 193 248)');
+		gradient.addColorStop(.5, 'rgb(92 203 250)');
+		gradient.addColorStop(.75, 'rgb(127 215 252)');
+		gradient.addColorStop(1, 'rgb(157 226 254)');
+
+		// Set the fill style and draw a rectangle
+		ctx.fillStyle = gradient;
+		ctx.fillRect(0, 0, canvas.width, canvas.height/2+65);
+
+
+		ctx.restore();
+	}
+	draw_soil(position_y) {
+		ctx.save();
+
+		ctx.fillStyle = "rgb(217 133 34)";
+		ctx.fillRect(0, position_y, canvas.width, canvas.height - position_y);
+
+		ctx.fillStyle = "rgb(123 76 20)";
+		ctx.fillRect(0, position_y, canvas.width, 2);
+
+
+
+		ctx.restore();
+
+
+
+	}
+	draw_div_button_bean_grow() {
 		ctx.save();
 		ctx.translate(20, 10);
 
@@ -33,7 +69,10 @@ class Interface {
 	}
 }
 var interface = new Interface();
-interface.draw_button_bean_grow();
+interface.draw_soil(canvas.height/2 + 65);
+interface.draw_div_button_bean_grow();
+
+
 
 
 class Plant {
@@ -94,12 +133,12 @@ function run_anime() {
 		case 'inital':
 			ctx.translate(canvas.width/2, canvas.height/2+100);
 			ctx.save();
-			plant.draw_bean(plant.bean.x, plant.bean.y, 30 * Math.PI/180, {
+			plant.draw_bean(plant.bean.x, plant.bean.y, 90 * Math.PI/180, {
 				strokeStyle: "#1d1d1d", 
 				fillStyle: "#fdbd05"
 			});
 			ctx.restore();
-			ctx.fillRect(-50, 0, 50, 50);
+			ctx.fillRect(0, 0, 50, 50);
 			// ctx.clearRect(-50, 0, 50, 50);
 
 			console.log('inital');
