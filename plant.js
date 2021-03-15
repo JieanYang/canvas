@@ -30,6 +30,13 @@ class Interface {
 
 		ctx.restore();
 	}
+	draw_grass(position_y, thickness) {
+		ctx.save();
+		ctx.fillStyle = "rgb(102 201 2)";
+		ctx.fillRect(0, position_y, canvas.width, thickness);
+
+		ctx.restore();
+	}
 	draw_soil(position_y) {
 		ctx.save();
 
@@ -42,8 +49,6 @@ class Interface {
 
 
 		ctx.restore();
-
-
 
 	}
 	draw_div_button_bean_grow() {
@@ -73,6 +78,7 @@ class Interface {
 var interface = new Interface();
 interface.draw_soil(canvas.height/2 + 65);
 interface.draw_sky(canvas.height/2 + 65);
+interface.draw_grass(canvas.height/2 + 60, 5);
 interface.draw_div_button_bean_grow();
 
 
