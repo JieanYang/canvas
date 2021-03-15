@@ -195,7 +195,7 @@ context.strokeStyle = "black";
 
 
 let FPS = 60; // Frames per second
-let delay = 1000/FPS;
+let delay = 2000/FPS;
 let previous = 0;
 
 
@@ -210,6 +210,8 @@ function root_simple_grow() {
   }
 
   previous = now;
+
+
 
   for(let line of lines) {
     context.beginPath();

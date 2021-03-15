@@ -91,42 +91,52 @@ interface.draw_div_button_bean_grow();
 
 
 class Plant {
-	constructor(x, y) {
+	constructor(x, y, rotation) {
 		this.status = "inital";
 		this.bean = {
 			x: x, 
-			y: y
+			y: y, 
+			rotation: rotation
 		}
 	}
-	set_timeSetting(obj) {
-		this.FPS = obj.FPS;
-		this.FPS_origin = obj.FPS;
-		this.delay = obj.delay;
-		this.delay_origin = obj.delay;
-		this.previous = obj.previous;
-		this.previous_origin = obj.previous;
-	}
 	draw_bean(x, y, rotation, options) {
+		this.x = x;
+		this.y = y;
+		this.rotation = rotation;
+
 		ctx.save();
 
 		ctx.rotate(rotation);
 
 		ctx.beginPath();
 		ctx.moveTo(x, y);
-		ctx.strokeStyle = options.strokeStyle;
-		ctx.fillStyle = options.fillStyle;
 		ctx.bezierCurveTo(x, y+10, x-10, y+5, x-10, y+15);
 		ctx.bezierCurveTo(x-10, y+25, x-8, y+15, x-7, y+35);
 		ctx.bezierCurveTo(x-8, y+40, x-12, y+43, x-15, y+43);
 		ctx.bezierCurveTo(x-30, y+43, x-30, y+23 ,x-30, y+20);
 		ctx.bezierCurveTo(x-30, y+10, x-25, y-10, x-10, y-10);
 		ctx.bezierCurveTo(x, y-8, x, y-5, x, y);
-		ctx.stroke();
+		
+		ctx.fillStyle = options.fillStyle;
 		ctx.fill();
+
+		ctx.strokeStyle = options.strokeStyle;
+		ctx.lineWidth = options.lineWidth;
+		ctx.stroke();
+		
 
 		ctx.restore();
 	}
-	clear_bean(x, y, rotation) {
+	clear_bean() {
+		var x = this.x;
+		var y = this.y;
+		var rotation = this.rotation;
+		var options = {
+			strokeStyle: color.soil, 
+			fillStyle: color.soil, 
+			lineWidth: 3, 
+		}
+
 		ctx.save();
 
 		ctx.rotate(rotation);
@@ -140,11 +150,11 @@ class Plant {
 		ctx.bezierCurveTo(x-30, y+10, x-25, y-10, x-10, y-10);
 		ctx.bezierCurveTo(x, y-8, x, y-5, x, y);
 
-		ctx.fillStyle = color.soil
+		ctx.fillStyle = options.fillStyle;
 		ctx.fill();
 
-		ctx.strokeStyle = color.soil
-		ctx.lineWidth = 3;
+		ctx.strokeStyle = options.strokeStyle;
+		ctx.lineWidth = options.lineWidth;
 		ctx.stroke();
 
 		ctx.restore();
@@ -156,29 +166,49 @@ class Plant {
 }
 
 
+class Time {
+	constructor(FPS, previous) {
+		this.FPS = FPS;
+		this.delay = 1000/FPS;
+		this.previous = previous
+	}
+}
 
-var plant = new Plant(0, 0);
-// Frames per second
-let FPS = 60; 
-plant.set_timeSetting({
-	FPS: FPS,  
-	delay: 1000/FPS, 
-	previous: 0, 
-});
+
+
+
+var plant = new Plant(0, 0, 0 * Math.PI/180);
 console.log(plant);
+
+
+
+// Frames per second
+const FPS = 120;
+const delay = 1000/FPS;
+let previous = 0;
 function run_anime() {
 	requestAnimationFrame(run_anime);
+
+	const now = Date.now();
+
+	if (now - previous < delay) {
+  	    // Do nothing
+		return;
+	}
+
+	previous = now;
+	
 
 	switch(plant.status) {
 		case 'inital':
 			ctx.save()
 			ctx.translate(canvas.width/2, canvas.height/2+100);
 			
-			plant.draw_bean(plant.bean.x, plant.bean.y, 0 * Math.PI/180, {
+			plant.draw_bean(plant.bean.x, plant.bean.y, plant.bean.rotation, {
 				strokeStyle: "#1d1d1d", 
-				fillStyle: color.bean
+				fillStyle: color.bean, 
+				lineWidth: 1, 
 			});
-			// plant.clear_bean(plant.bean.x, plant.bean.y, 45 * Math.PI/180);
 
 			// ctx.fillRect(0, 0, 50, 50);
 			// ctx.clearRect(-50, 0, 50, 50);
@@ -188,13 +218,50 @@ function run_anime() {
 			plant.status = 'prepare';
 			break;
 		case 'prepare':
-
+			console.log('prepare');
 			break;
 		case 'beanGrow':
+
+			plant.status = "rootGrow";
 			console.log('grow');
 
 			break;
 
+		case "rootGrow":
+			console.log("rootGrow");
+			plant.status = "beanRotation";
+			break;
+		case "beanRotation":
+
+			ctx.save()
+			ctx.translate(canvas.width/2, canvas.height/2+100);
+
+
+			plant.bean.rotation += .2 * Math.PI/180;
+
+			plant.clear_bean();
+
+			plant.draw_bean(plant.bean.x, plant.bean.y, plant.bean.rotation, {
+				strokeStyle: "#1d1d1d", 
+				fillStyle: color.bean, 
+				lineWidth: 1, 
+			});
+
+			// console.log(plant.bean.rotation);
+
+			if(plant.bean.rotation > 90 * Math.PI/180) {
+				plant.status = "branchAndLeavesGrow";
+			}
+			
+
+			ctx.restore();
+
+			break;
+		case "branchAndLeavesGrow":
+
+			console.log("branchAndLeavesGrow");
+
+			break;
 		default:
 			console.log('no status');
 	}
@@ -212,6 +279,7 @@ canvas.addEventListener('click',function(e){
   	&&
   	(e.pageY >= 10 && e.pageY <= 60)
   ) {
+  	console.log('go beanGrow')
   	plant.status = 'beanGrow';
   }
 });
