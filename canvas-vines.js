@@ -152,4 +152,4 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var context = canvas.getContext("2d");
 // drawLeaf(context, canvas.width/2, canvas.height/2, 30, 30, Math.PI/3, 'green');
-drawVines(context, canvas.width/2, canvas.height/2, 300);
+drawVines(context, canvas.width/2, canvas.height/2 + 100, 300);
