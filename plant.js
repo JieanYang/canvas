@@ -9,7 +9,7 @@ class Interface {
 	constructor() {
 
 	}
-	draw_sky() {
+	draw_sky(position_y) {
 		ctx.save();
 
 
@@ -25,7 +25,7 @@ class Interface {
 
 		// Set the fill style and draw a rectangle
 		ctx.fillStyle = gradient;
-		ctx.fillRect(0, 0, canvas.width, canvas.height/2+65);
+		ctx.fillRect(0, 0, canvas.width, position_y);
 
 
 		ctx.restore();
@@ -70,6 +70,7 @@ class Interface {
 }
 var interface = new Interface();
 interface.draw_soil(canvas.height/2 + 65);
+interface.draw_sky(canvas.height/2 + 65);
 interface.draw_div_button_bean_grow();
 
 
